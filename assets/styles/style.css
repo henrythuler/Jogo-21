@@ -1,0 +1,173 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    background-color: #0d5a2c;
+}
+
+button{
+    width: 500px;
+    padding: 30px;
+    font-size: 48px;
+    background-color: red;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid white;
+}
+
+.container{
+    display: flex;
+    width: 1200px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.game{
+    display: none;
+    height: inherit;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.turn{
+    position: absolute;
+    z-index: 998;
+    color: white;
+    font-size: 36px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.options-final{
+    display: none;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 58.5%;
+    transform: translate(-50%, -58.5%);
+    z-index: 999;
+}
+
+.play-again{
+    color: white;
+    background-color: red;
+    padding: 20px;
+    font-size: 18px;
+    border: 1px solid white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.quit{
+    margin-top: 10px;
+    color: red;
+    cursor: pointer;
+}
+
+.quit-message{
+    color: white;
+    text-align: center;
+    font-size: 48px;
+}
+
+.quit-message span{
+    color: red;
+}
+
+.ai,
+.player{
+    flex: 1;
+    width: 100%;
+}
+
+.ai .cards,
+.player .cards{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 50px 0px;
+    color: white;
+    font-size: 22px;
+}
+
+.ai{
+    position: relative;
+}
+
+.loader{
+    display: none;
+    animation: rotating 1s infinite;
+    width: 30px;
+    height: 30px;
+    border: 6px solid #e5e5e5;
+    border-top-color: rgb(76, 130, 230);
+    border-radius: 50%;
+    margin-top: 20px;
+    position: absolute;
+    left: 50%;
+}
+
+.player{
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    justify-content: center;
+}
+
+.player .score,
+.player .options{
+    align-self: center;
+}
+
+.score{
+    position: absolute;
+    left: 30px;
+}
+
+.score span{
+    color: red;
+}
+
+.options{
+    position: absolute;
+    right: 30px;
+    text-align: center;
+}
+
+.options .buy{
+    margin-bottom: 20px;
+}
+
+.buy,
+.finish{
+    cursor: pointer;
+}
+
+.score span:hover,
+.buy:hover,
+.finish:hover{
+    font-size: 24px;
+}
+
+.ai .cards img,
+.player .cards img{
+    width: 125px;
+    height: auto;
+    margin: 0px 5px;
+}
+
+@keyframes rotating{
+    to{
+        transform: rotate(1turn);
+    }
+}
