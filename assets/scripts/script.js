@@ -166,7 +166,12 @@ async function start(){
 }
 
 //Finalizando a jogada
-finish.addEventListener('click', async () => await startAi(aiCards, playerScore))
+finish.addEventListener('click', async () => {
+
+    options.style.display = "none"
+    await startAi(aiCards, playerScore)
+
+})
 
 async function drawCards(){
 
@@ -276,13 +281,11 @@ async function startAi(aiCards, playerScore){
 
     }, 1000);
 
-    setTimeout(() => final(aiScore, playerScore, aiCards), 2000)
+    setTimeout(() => final(aiScore, playerScore, aiCards), 3000)
 
 }
 
 function final(aiScore, playerScore, aiCards){
-    
-    aiFinalScore.innerHTML = `Pontuação da AI: <span>${aiScore}</span>`
 
     let winner = {
 
@@ -290,26 +293,7 @@ function final(aiScore, playerScore, aiCards){
             aiWinner: ((aiScore == 21 && playerScore != 21) || (aiScore > playerScore && aiScore < 21) || (aiScore < playerScore && playerScore > 21)),
 
         }
-
-    if(playerScore === aiScore){
-
-        turn.innerHTML = "Empatou..."
-
-    }else if((playerScore > 21) && (aiScore > 21)){
-
-        turn.innerHTML = "Ninguém ganhou..."
-
-    }else if(winner.playerWinner){
-
-        turn.innerHTML = "Você ganhou!"
-        winnings++
-
-    }else if(winner.aiWinner){
-
-        turn.innerHTML = "A AI ganhou..."
-
-    }
-
+    
     let cardsAreaAiImgs = document.querySelectorAll('.cards-area-ai img')
 
     for(let i = 0; i < cardsAreaAiImgs.length; i++){
@@ -317,10 +301,33 @@ function final(aiScore, playerScore, aiCards){
         cardsAreaAiImgs[i].src = aiCards[i].image
 
     }
+    
+    setTimeout(() => {
 
-    optionsFinal.style.display = "block"
+        aiFinalScore.innerHTML = `Pontuação da AI: <span>${aiScore}</span>`
 
-    options.style.display = "none"
+        if(playerScore === aiScore){
+
+            turn.innerHTML = "Empatou..."
+    
+        }else if((playerScore > 21) && (aiScore > 21)){
+    
+            turn.innerHTML = "Ninguém ganhou..."
+    
+        }else if(winner.playerWinner){
+    
+            turn.innerHTML = "Você ganhou!"
+            winnings++
+    
+        }else if(winner.aiWinner){
+    
+            turn.innerHTML = "A AI ganhou..."
+    
+        }
+
+        optionsFinal.style.display = "block"
+
+    }, 500)
 
 }
 
