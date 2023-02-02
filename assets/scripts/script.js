@@ -23,8 +23,10 @@ async function getDeck(){
     deckId = deckIdRes.deck_id
 }
 
+//Função para "construir" o meu tabuleiro
 async function buildGame(){
 
+    //Pegando a área de cada jogador
     cardsAreaAi = document.querySelector(".cards-area-ai")
     cardsAreaPlayer = document.querySelector('.cards-area')
 
@@ -84,6 +86,7 @@ async function buildGame(){
 
 }
 
+//Função para montar o meu player "AI"
 function buildAI(aiCards){
 
     //Se for a primeira partida, basta montar as cartas
@@ -114,6 +117,7 @@ function buildAI(aiCards){
 
 }
 
+//Função para construir meu player principal
 function buildPlayer(playerCards){
 
     //Deixando visível as opções de compra e finalizar jogada
@@ -147,17 +151,22 @@ function buildPlayer(playerCards){
 
 }
 
+//Função para iniciar o jogo
 async function start(){
 
+    //Zerando o meu turno
     turn.innerHTML = ''
 
+    //Exibindo meu loading
     showLoading()
 
     //Montando o Jogo
     await buildGame()
 
+    //Escondendo meu loading
     setTimeout(showLoading(), 3000)
 
+    //Exibindo o meu turno
     turn.innerHTML = 'Sua vez de jogar!'
 
     //Exibindo o jogo
@@ -168,13 +177,18 @@ async function start(){
 //Finalizando a jogada
 finish.addEventListener('click', async () => {
 
+    //As opções ficarão invisíveis
     options.style.display = "none"
+
+    //Vez da AI
     await startAi(aiCards, playerScore)
 
 })
 
+//Função para retirar as cartas do baralho
 async function drawCards(){
 
+    //Array para as cartas retiradas
     let cards = []
 
     //Requisição de 6 cartas para distribuir entre os jogadores
@@ -193,7 +207,7 @@ async function drawCards(){
 
     }
 
-    //Retornando meu array
+    //Retornando meu array de cartas
     return cards
 
 }
@@ -256,37 +270,49 @@ async function buyCards(){
 
 }
 
+//Função para iniciar a vez da AI
 async function startAi(aiCards, playerScore){
 
     turn.innerHTML = 'Vez do adversário...'
 
+    //Checando a pontuação da minha AI
     let aiScore = checkScore(aiCards)
+
 
     setTimeout(async () => {
 
+        //Se a pontuação for menor que 14 ela comprará mais uma carta
         if(aiScore < 14){
 
+            //Requisição para retirar mais uma carta
             let newCardAi = await buyCards()
 
+            //Criando o elemento de uma nova carta
             let newCardAiEl = document.createElement('img')
             newCardAiEl.src = "./assets/images/cardback.png"
 
+            //Adicionando esse elemento à área da AI
             cardsAreaAi.appendChild(newCardAiEl)
 
+            //Somando o valor da carta com a pontuação atual
             aiScore += verifyValue(newCardAi.value)
 
+            //Adicionando a carta ao array de cartas da AI
             aiCards.push(newCardAi)
 
         }
 
     }, 1000);
 
+    //Executando a função final
     setTimeout(() => final(aiScore, playerScore, aiCards), 3000)
 
 }
 
+
 function final(aiScore, playerScore, aiCards){
 
+    //Casos com cada vencedor
     let winner = {
 
             playerWinner: ((playerScore == 21 && aiScore != 21) || (playerScore > aiScore && playerScore <= 21) || ((playerScore < aiScore) && (aiScore > 21 && playerScore < 21))),
@@ -294,8 +320,10 @@ function final(aiScore, playerScore, aiCards){
 
         }
     
+    //Pegando todas os elementos das cartas da AI
     let cardsAreaAiImgs = document.querySelectorAll('.cards-area-ai img')
-
+    
+    //Exibindo cada carta da AI
     for(let i = 0; i < cardsAreaAiImgs.length; i++){
 
         cardsAreaAiImgs[i].src = aiCards[i].image
@@ -304,8 +332,10 @@ function final(aiScore, playerScore, aiCards){
     
     setTimeout(() => {
 
+        //Exibindo a pontuação da AI
         aiFinalScore.innerHTML = `Pontuação da AI: <span>${aiScore}</span>`
 
+        //Verificando o vencedor
         if(playerScore === aiScore){
 
             turn.innerHTML = "Empatou..."
@@ -325,20 +355,25 @@ function final(aiScore, playerScore, aiCards){
     
         }
 
+        //Mostrando as opções finais
         optionsFinal.style.display = "block"
 
     }, 500)
 
 }
 
+//Função para exibir o meu loading
 function showLoading(){
 
+    //Pegando o elemento de loading
     let loader = document.querySelector('.loader')
 
+    //Se o elemento está escondido, então exibimos
     if(loader.style.display === '' || loader.style.display === "none"){
 
         loader.style.display = "block"
-
+    
+    //Caso contrário, escondemos
     }else{
 
         loader.style.display = "none"
@@ -347,13 +382,19 @@ function showLoading(){
 
 }
 
+//Função para sair do jogo
 function quit(){
 
+    //Escondendo o meu tabuleiro
     game.style.display = 'none'
+
+    //Pegando o elemento com a mensagem final
     let quitMessage = document.querySelector('.quit-message')
 
+    //Exibindo a mensagem final
     quitMessage.style.display = 'block'
 
+    //Verificando a quantidade de vitórias e exibindo uma mensagem final
     if(winnings == 1){
 
         quitMessage.innerHTML = `Obrigado por jogar<br>Você ganhou <span>${winnings}</span> vez!`
@@ -370,53 +411,74 @@ function quit(){
     
 }
 
+//Pegando meu botão inicial
 let button = document.querySelector('button')
 
+//Adicionando o evento de clique ao meu botão
 button.addEventListener('click', async () => {
 
+    //Escondendo meu botão
     button.style.display = 'none'
 
+    //Pegando ID do meu deck
     await getDeck()
 
+    //Iniciando o jogo
     await start()
 
 })
 
+//Adicionando evento de clique para comprar carta
 buyCardEl.addEventListener('click', async () => {
 
+    //Requisição para comprar uma carta
     let newCard = await buyCards()
 
+    //Adicionando a carta nova ao array de cartas do jogador principal
     playerCards.push(newCard)
 
+    //Criando um elemento para a carta nova
     let newCardEl = document.createElement('img')
 
+    //Adicionando o src da imagem da carta nova ao meu elemento criado
     newCardEl.src = newCard.image
 
+    //Adicionando o elemento criado à área do meu jogador principal
     cardsAreaPlayer.append(newCardEl)
     
+    //Somando a pontuação do jogador principal com o valor da carta retirada
     playerScore += verifyValue(newCard.value)
     
+    //Exibindo a nova pontuação
     playerScoreArea.innerHTML = `Sua pontuação: <span>${playerScore}</span>`
 
+    //Escondendo a opção de compra para essa rodada
     buyCardEl.style.display = "none"    
 
 })
 
+//Adicionando evento de clique para o meu botão de jogar novamente
 document.querySelector('.play-again').addEventListener('click', async () => {
 
+    //Incrementando o número de partidas
     matches++
 
+    //Retornando as cartas para o meu deck
     let returnDeckReq = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/return/`)
     let returnDeckRes = await returnDeckReq.json()
 
+    //Atribuindo o ID do deck com todas as cartas ao meu deckID
     deckId = returnDeckRes.deck_id
 
+    //Iniciando o jogo
     start()
 
 })
 
+//Adicionando evento de clique ao meu botão de sair do jogo
 document.querySelector('.quit').addEventListener("click", () => {
 
+    //Execuntando a função para sair do jogo
     quit()
 
 })
