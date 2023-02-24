@@ -1,4 +1,4 @@
-<h2>Jogo de Cartas 21 :clubs:</h2>
+<h2>:clubs: Thuler 21</h2>
 :spades: Projeto do jogo de cartas 21 desenvolvido em HTML, CSS e JS.
 <br>
 <br>
@@ -22,8 +22,9 @@
 <br>
 <br>
 :smile: Fiquei extremamente feliz com o resultado, divirtam-se!
-  
-<h2>21 Card Game :clubs:</h2>
+ 
+<hr>
+
 :spades: 21 Card Game Project developed in HTML, CSS e JS.
 <br>
 <br>
