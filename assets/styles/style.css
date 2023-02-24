@@ -193,6 +193,10 @@ button{
 
 @media (max-width: 690px){
 
+    button{
+        width: 300px;
+    }
+
     .ai .cards,
     .player .cards{
         flex-direction: column;
