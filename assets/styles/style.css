@@ -134,8 +134,13 @@ button{
     left: 30px;
 }
 
-.score span{
+.score span,
+.score p{
     color: red;
+}
+
+.score p{
+    text-align: center;
 }
 
 .options{
@@ -170,4 +175,43 @@ button{
     to{
         transform: rotate(1turn);
     }
+}
+
+@media (max-width: 850px){
+
+    .score,
+    .options{
+        font-size: 18px;
+    }
+
+    .ai .cards img,
+    .player .cards img{
+        width: 95px;
+    }
+
+}
+
+@media (max-width: 690px){
+
+    .ai .cards,
+    .player .cards{
+        flex-direction: column;
+        align-items: center;
+        justify-content: none;
+    }
+
+    .score,
+    .options{
+        position: static;
+        margin: 10px 0px;
+    }
+
+    .turn{
+        font-size: 24px;
+    }
+
+    .quit-message{
+        font-size: 44px;
+    }
+
 }

@@ -449,9 +449,23 @@ buyCardEl.addEventListener('click', async () => {
     //Somando a pontuação do jogador principal com o valor da carta retirada
     playerScore += verifyValue(newCard.value)
     
-    //Exibindo a nova pontuação
-    playerScoreArea.innerHTML = `Sua pontuação: <span>${playerScore}</span>`
+    //Pegando a largura atual da minha tela
+    let largura = window.innerWidth
 
+    //Se ela for menor ou igual a 690px, irá adicionar a pontuação em um span
+    if(largura <= 690){
+
+        //Exibindo a nova pontuação
+        playerScoreArea.innerHTML = `Sua pontuação: <span>${playerScore}</span>`
+    
+    //Caso contrário, ela será adicionada em um parágrafo
+    }else{
+
+        //Exibindo a nova pontuação
+        playerScoreArea.innerHTML = `Sua pontuação: <p>${playerScore}</p>`
+
+    }
+    
     //Escondendo a opção de compra para essa rodada
     buyCardEl.style.display = "none"    
 
