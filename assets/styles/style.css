@@ -189,12 +189,21 @@ button{
         width: 95px;
     }
 
+    .turn{
+        width: max-content;
+    }
+
 }
 
 @media (max-width: 690px){
 
     button{
         width: 300px;
+    }
+
+    .ai .cards img,
+    .player .cards img{
+        width: 70px;
     }
 
     .ai .cards,
@@ -214,8 +223,17 @@ button{
         font-size: 24px;
     }
 
+    .play-again{
+        margin-top: 20px;
+    }
+
     .quit-message{
         font-size: 44px;
+    }
+
+    .loader{
+        margin: 20px 0px;
+        left: 45%;
     }
 
 }

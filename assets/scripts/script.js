@@ -13,6 +13,8 @@ let optionsFinal = document.querySelector('.options-final')
 let aiFinalScore = document.querySelector('.ai .cards .score')
 let finish = document.querySelector('.finish')
 let options = document.querySelector(".options")
+let playAgain = document.querySelector('.play-again')
+let quitButton = document.querySelector('.quit')
 
 //Função para pegar o ID do baralho
 async function getDeck(){
@@ -472,10 +474,12 @@ buyCardEl.addEventListener('click', async () => {
 })
 
 //Adicionando evento de clique para o meu botão de jogar novamente
-document.querySelector('.play-again').addEventListener('click', async () => {
+playAgain.addEventListener('click', async () => {
 
     //Incrementando o número de partidas
     matches++
+
+    optionsFinal.style.display = 'none'
 
     //Retornando as cartas para o meu deck
     let returnDeckReq = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/return/`)
@@ -490,7 +494,7 @@ document.querySelector('.play-again').addEventListener('click', async () => {
 })
 
 //Adicionando evento de clique ao meu botão de sair do jogo
-document.querySelector('.quit').addEventListener("click", () => {
+quitButton.addEventListener("click", () => {
 
     //Execuntando a função para sair do jogo
     quit()
